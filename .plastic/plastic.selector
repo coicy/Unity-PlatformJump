@@ -1,0 +1,4 @@
+repository "造轮子之丝滑平台跳跃@coicy@cloud.cn"
+  path "/"
+    br "/main"
+    co "/main"
