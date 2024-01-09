@@ -1,7 +1,7 @@
 # Unity-PlatformJump
 一个轮子，制作了一个不基于Unity物理系统的平台跳跃机制
 
-**==./Assets/Scripts/SmothJump.cs==**
+**<mark>./Assets/Scripts/SmothJump.cs</mark>**
 
 ### 原理
 1. 使用一个有限状态机管理角色的跳跃状态
@@ -10,7 +10,7 @@
 4. 当Jump输入取消时，或者检测到落地时，离开Jump状态，进入Land状态。
 5. 当获取到Move输入时，同时获取Move输入的一个Vector2向量记作move，然后为角色的横向速度赋值为move*Speed
 
-**==./Assets/Scripts/IPlayerState.cs==**
+**<mark>./Assets/Scripts/IPlayerState.cs</mark>**
 
 ### 原理
  在这个文件中包含了角色的有限状态基类和所有其他有限状态。
@@ -33,7 +33,7 @@
     - 移动类
        跳跃和横向移动可以同时进行，所以把横向移动单独封装一个函数，而不纳入有限状态机中。因而这个类中暂时什么都不做。
 
-**==./Assets/Scripts/DataSpace.cs==**
+**<mark>./Assets/Scripts/DataSpace.cs</mark>**
 
 ### 原理
   这个文件包含了一个基类，即DataSpace类，用来存储状态机的共用数据，即一个“白板”；和一个DataSpace的派生类PlayerDataSpace，用来存储角色的状态数据。
@@ -67,12 +67,12 @@
     ```
     以上是一系列变量，用来存储角色的状态数据。
 
-**==./Assets/Scripts/PlayerInputControl.cs==**
+**<mark>./Assets/Scripts/PlayerInputControl.cs</mark>**
 
 ### 原理
   这是一个由Unity新输入系统自动生成的文件。详情请参照Unity新输入系统的教程。
 
-**==./Assets/Scripts/GroundDetector.cs==**
+**<mark>./Assets/Scripts/GroundDetector.cs</mark>**
 
 ### 原理
   这个脚本负责检测角色是否在地面上。通过```Physics2D.OverlapCircle```方法，检测在碰撞器的一定半径范围内有无标记为地面的碰撞体。如果有，那么判定在地面上。
