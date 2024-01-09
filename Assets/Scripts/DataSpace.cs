@@ -24,10 +24,8 @@ public class PlayerDataSpace : DataSpace
 
     #region 状态控制
     public bool isGrounded;
-    public bool isFalling;
-    public bool isLand;
+    // public bool isLand;
 
-    public float LandTimer;
     public float JumpTime;
     public float MinJumpTime;
 
@@ -35,5 +33,7 @@ public class PlayerDataSpace : DataSpace
     [SerializeField] public AnimationCurve JumpSpeedCurve;
     [Header("落地延时")]
      public float DelayTime;
+    [Header("土狼时间")]
+    public float CoyotoTime;
     #endregion
 }

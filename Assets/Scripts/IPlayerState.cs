@@ -6,8 +6,9 @@ public enum PlayerState {
     Jump,
     Land,
     Idle,
-    Move
-
+    Move,
+    CoyoteTime,
+    Fall
 }
 
 public interface IState
@@ -54,11 +55,10 @@ public class ILand : IPlayerState
 
     public void Update()
     {
+        Timer += Time.deltaTime;
 
-
-        if (space.LandTimer >= space.DelayTime)
+        if (Timer >= space.DelayTime)
         {
-            space.isLand = false;
             space.Input.Player.Move.Enable();
             Exit();
         }
@@ -150,6 +150,66 @@ public class Idle : IPlayerState
     public void Update()
     {
         
+
+    }
+
+    public class ICoyoteTime : IPlayerState
+    {
+        public PlayerDataSpace space;
+        public float Timer;
+        public float CoyoteTime;
+
+        public ICoyoteTime(PlayerDataSpace space)
+        {
+            this.space = space;
+            CoyoteTime = space.CoyotoTime;
+        }
+
+        public void Enter()
+        {
+
+        }
+        public void Update()
+        {
+            Timer += Time.deltaTime;
+
+            if( Timer > CoyoteTime )
+            {
+                Exit();
+            }
+        }
+
+        public void Exit()
+        {
+            space.SwitchState(PlayerState.Fall);
+        }
+    }
+
+    public class IFall: IPlayerState
+    {
+        public PlayerDataSpace space;
+
+        public IFall(PlayerDataSpace space)
+        {
+            this.space = space;
+        }
+
+        public void Enter()
+        {
+
+        }
+
+        public void Update()
+        {
+            if (space.isGrounded) {
+                Exit();
+            }
+        }
+
+        public void Exit()
+        {
+            space.SwitchState(PlayerState.Idle);
+        }
 
     }
 }

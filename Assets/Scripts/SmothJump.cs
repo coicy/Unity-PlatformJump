@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Idle;
 
 public class SmothJump : MonoBehaviour
 {
@@ -41,7 +42,7 @@ public class SmothJump : MonoBehaviour
 
         playerState = new Idle(PlayerDataSpace);
     }
-    private void Update()
+    private void FixedUpdate()
     {
 
         StateControl();
@@ -53,6 +54,12 @@ public class SmothJump : MonoBehaviour
     private void StateControl()
     {
         PlayerDataSpace.isGrounded = groundDetectors[0].isDetected || groundDetectors[1].isDetected;
+
+        if(!PlayerDataSpace.isGrounded && PlayerState == PlayerState.Idle) {
+
+            StateTransform(PlayerState.CoyoteTime);
+
+        }
 
         playerState.Update();
 
@@ -86,7 +93,7 @@ public class SmothJump : MonoBehaviour
 
     private void Jump(InputAction.CallbackContext context)
     {
-        if(PlayerDataSpace.isGrounded)
+        if(PlayerState == PlayerState.Idle || PlayerState == PlayerState.CoyoteTime)
             StateTransform(PlayerState.Jump);
     }
 
@@ -122,18 +129,32 @@ public class SmothJump : MonoBehaviour
                 
                 playerState = new IJump(PlayerDataSpace);
                 break;
+
             case PlayerState.Land:
                 
                 playerState = new ILand(PlayerDataSpace);
                 break;
+
             case PlayerState.Idle:
 
                 playerState = new Idle(PlayerDataSpace);
                 break;
+
             case PlayerState.Move:
 
                 playerState = new IMove(PlayerDataSpace);
                 break;
+
+            case PlayerState.CoyoteTime:
+
+                playerState = new ICoyoteTime(PlayerDataSpace);
+                break;
+
+            case PlayerState.Fall:
+                
+                playerState = new IFall(PlayerDataSpace);
+                break;
+
             default:
                 throw new NotImplementedException("No this State");
                 
