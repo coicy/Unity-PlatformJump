@@ -40,7 +40,7 @@
   - 基类DataSpace
     什么都不做。这是一个空类。
   - 派生类PlayerDataSpace
-    ```
+    ```C#
     public Rigidbody2D Rigidbody;
     public Animator Animator;
     public PlayerInputControl Input;
